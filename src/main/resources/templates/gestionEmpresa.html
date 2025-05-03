@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Empresa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #004d99;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .photo-gallery img {
+            width: 100%;
+            max-width: 300px;
+            margin: 10px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .offers, .news {
+            background-color: #e7f1ff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .offers h2, .news h2 {
+            margin-top: 0;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .edit-button {
+            background-color: #004d99;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .edit-button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gestión de Empresa</h1>
+        <p>Bienvenido, aquí puedes gestionar la información de tu empresa.</p>
+    </header>
+
+    <div class="container">
+        <!-- Sección de Información General -->
+        <div class="section">
+            <h2>Nombre de la Empresa</h2>
+            <p id="company-name">Mi Empresa S.A.</p>
+            <button class="edit-button" onclick="editCompanyName()">Editar</button>
+        </div>
+
+        <!-- Sección de Imágenes -->
+        <div class="section photo-gallery">
+            <h2>Galería de Fotos</h2>
+            <div>
+                <img src="https://via.placeholder.com/300x200" alt="Foto de la Empresa">
+                <img src="https://via.placeholder.com/300x200" alt="Foto de la Empresa">
+                <img src="https://via.placeholder.com/300x200" alt="Foto de la Empresa">
+            </div>
+            <button class="edit-button" onclick="editPhotos()">Editar Fotos</button>
+        </div>
+
+        <!-- Sección de Ofertas -->
+        <div class="section offers">
+            <h2>Ofertas Especiales</h2>
+            <div class="card">
+                <h3>Oferta 1</h3>
+                <p>Descripción de la oferta 1.</p>
+            </div>
+            <div class="card">
+                <h3>Oferta 2</h3>
+                <p>Descripción de la oferta 2.</p>
+            </div>
+            <button class="edit-button" onclick="editOffers()">Editar Ofertas</button>
+        </div>
+
+        <!-- Sección de Novedades -->
+        <div class="section news">
+            <h2>Novedades</h2>
+            <div class="card">
+                <h3>Novedad 1</h3>
+                <p>Descripción de la novedad 1.</p>
+            </div>
+            <div class="card">
+                <h3>Novedad 2</h3>
+                <p>Descripción de la novedad 2.</p>
+            </div>
+            <button class="edit-button" onclick="editNews()">Editar Novedades</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Mi Empresa S.A. | Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Funciones JavaScript para editar la información
+        function editCompanyName() {
+            const newName = prompt("Introduce el nuevo nombre de la empresa:");
+            if (newName) {
+                document.getElementById("company-name").innerText = newName;
+            }
+        }
+
+        function editPhotos() {
+            alert("Aquí podrás cargar nuevas fotos en el futuro.");
+        }
+
+        function editOffers() {
+            alert("Aquí podrás actualizar las ofertas en el futuro.");
+        }
+
+        function editNews() {
+            alert("Aquí podrás agregar novedades en el futuro.");
+        }
+    </script>
+</body>
+</html>

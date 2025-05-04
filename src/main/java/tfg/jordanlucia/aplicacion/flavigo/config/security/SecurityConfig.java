@@ -27,9 +27,9 @@ public class SecurityConfig {
 	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	        http
 	            .authorizeHttpRequests(auth -> auth
-	            		   .requestMatchers("/admin/").hasRole("ADMIN")
-	                       .requestMatchers("/empresa/").hasRole("EMPRESA")
-	                       .requestMatchers("/usuario/**").hasRole("USER")
+	            		   .requestMatchers("/admin").hasRole("ADMIN")
+	                       .requestMatchers("/empresa").hasRole("EMPRESA")
+	                       .requestMatchers("/usuario").hasRole("USER")
 //	                .requestMatchers("/login", "/registro", "/index", "/public/**").permitAll()
 //	                .requestMatchers("/funciones-protegidas/**").authenticated()
 	                .anyRequest().permitAll()
@@ -63,5 +63,3 @@ public class SecurityConfig {
 	        return new BCryptPasswordEncoder();
 	    }
 }
-    
-

@@ -2,12 +2,14 @@ package tfg.jordanlucia.aplicacion.flavigo.model.entity;
 
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import tfg.jordanlucia.aplicacion.flavigo.ENUMS.TipoPlan;
+import tfg.jordanlucia.aplicacion.flavigo.model.entity.puntoInteres.PuntoInteres;
 
 @Entity
 @Table(name = "TD_EMPRESA")

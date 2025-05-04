@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    </head>
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <button type="button" id="sidebarToggle" class="btn btn-link">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="d-flex align-items-center">
+               <img th:src="@{img/logosinlogo.png}" alt="Logo" class="sidebar-logo">
+                <span class="navbar-brand">Panel de Administración</span>
+            </div>
+            <div class="d-flex">
+                <span class="navbar-text me-3">Bienvenido, Administrador</span>
+                <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-bell-fill"></i> Notificaciones</button>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

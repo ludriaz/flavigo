@@ -13,10 +13,10 @@ public class ParadaPuntoInteres {
     private Integer  idParada;
 
     @Column(name = "id_punto_interes", nullable = false)
-    private long idPuntoInteres;
+    private Integer idPuntoInteres;
 
     @Column(name = "orden_en_parada", nullable = false)
-    private int ordenEnParada;
+    private Integer ordenEnParada;
 
     @Column(name = "notas_adicionales")
     private String notasAdicionales;
@@ -26,7 +26,7 @@ public class ParadaPuntoInteres {
     }
 
     // Constructor completo
-    public ParadaPuntoInteres(Integer  idParada, long idPuntoInteres, int ordenEnParada, String notasAdicionales) {
+    public ParadaPuntoInteres(Integer  idParada, Integer idPuntoInteres, Integer ordenEnParada, String notasAdicionales) {
         this.idParada = idParada;
         this.idPuntoInteres = idPuntoInteres;
         this.ordenEnParada = ordenEnParada;
@@ -35,7 +35,7 @@ public class ParadaPuntoInteres {
 
     // Getters y Setters
 
-    public long getIdParada() {
+    public Integer getIdParada() {
         return idParada;
     }
 
@@ -43,19 +43,19 @@ public class ParadaPuntoInteres {
         this.idParada = idParada;
     }
 
-    public long getIdPuntoInteres() {
+    public Integer getIdPuntoInteres() {
         return idPuntoInteres;
     }
 
-    public void setIdPuntoInteres(long idPuntoInteres) {
+    public void setIdPuntoInteres(Integer idPuntoInteres) {
         this.idPuntoInteres = idPuntoInteres;
     }
 
-    public int getOrdenEnParada() {
+    public Integer getOrdenEnParada() {
         return ordenEnParada;
     }
 
-    public void setOrdenEnParada(int ordenEnParada) {
+    public void setOrdenEnParada(Integer ordenEnParada) {
         this.ordenEnParada = ordenEnParada;
     }
 

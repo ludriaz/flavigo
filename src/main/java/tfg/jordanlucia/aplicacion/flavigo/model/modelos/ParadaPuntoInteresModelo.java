@@ -28,10 +28,10 @@ public class ParadaPuntoInteresModelo {
 	public void setIdPuntoInteres(Integer  idPuntoInteres) {
 		this.idPuntoInteres = idPuntoInteres;
 	}
-	public int getOrdenEnParada() {
+	public Integer getOrdenEnParada() {
 		return ordenEnParada;
 	}
-	public void setOrdenEnParada(int ordenEnParada) {
+	public void setOrdenEnParada(Integer ordenEnParada) {
 		this.ordenEnParada = ordenEnParada;
 	}
 	public String getNotasAdicionales() {

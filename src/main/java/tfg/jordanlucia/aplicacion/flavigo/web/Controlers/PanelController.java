@@ -2,19 +2,20 @@ package tfg.jordanlucia.aplicacion.flavigo.web.Controlers;
 
 
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-
 @Controller
 public class PanelController {
-	
+
     @GetMapping("/admin")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String adminPanel(Model model) {
         model.addAttribute("mensaje", "Bienvenido al panel de administrador");
-        return "panel"; // Asegúrate de tener un panel.html
+        return "admin/panel"; // Asegúrate de tener un panel.html
     }
 
     @GetMapping("/empresa")
@@ -34,7 +35,7 @@ public class PanelController {
         // No pongas aquí código que cifre o use PasswordEncoder
         return "index"; // Devuelve el nombre de tu vista index.html
     }
-    
+
     @GetMapping("/login")
     public String login() {
         return "login";

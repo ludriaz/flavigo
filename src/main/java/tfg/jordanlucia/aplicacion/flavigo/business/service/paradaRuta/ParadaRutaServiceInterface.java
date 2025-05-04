@@ -1,4 +1,4 @@
-package tfg.jordanlucia.aplicacion.flavigo.business.service;
+package tfg.jordanlucia.aplicacion.flavigo.business.service.paradaRuta;
 
 import java.util.List;
 import tfg.jordanlucia.aplicacion.flavigo.model.modelos.ParadaRutaModelo;

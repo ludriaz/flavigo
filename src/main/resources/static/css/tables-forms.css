@@ -1,0 +1,301 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+
+body {
+    padding-top: 60px;
+    overflow-x: hidden;
+    margin: 0;
+    background-image: url('/img/body.png');
+    font-family: 'Poppins', sans-serif;
+    background-size: cover;
+    height: 100vh;
+}
+
+.logo-container {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.container-sm {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+}
+
+h5 {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 48px; /* Tamaño de la fuente */
+}
+
+h2 {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 72px;
+    color: #0d522c;
+}
+
+h3 {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 55px;
+    color: #0d522c;
+}
+
+
+input.form-control {
+    background: #77bba2;
+    color: #0d522c;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    text-align: center;
+}
+
+input::placeholder {
+    color: #0d522c;
+}
+
+.btn-custom {
+    background: #3c7962;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 25px;
+}
+
+.btn-custom:hover {
+    background: #2f5d4a;
+}
+
+.forgot-password {
+    font-size: 12px;
+    color: #0d522c;
+}
+
+.container-fluid {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #3c7962;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem #77bba2;
+  }
+  
+  #formulario-poi .form-group .form-control option:hover {
+    background-color: #0d522c;
+    color: white;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #f8f9fa;
+    transition: left 0.3s ease-in-out;
+    padding-top: 56px;
+    z-index: 1045;
+  }
+  .sidebar.open {
+    left: 0;
+  }
+  .sidebar .navbar-nav {
+    flex-direction: column !important;
+  }
+  .sidebar .nav-link {
+    padding: 10px 20px;
+    color: #333;
+  }
+  .sidebar .nav-link:hover {
+    background-color: #e9ecef;
+  }
+  .content {
+    margin-left: 0;
+    transition: margin-left 0.3s ease-in-out;
+    padding-top: 70px;
+  }
+  .content.open {
+    margin-left: 250px;
+  }
+  .top-bar {
+    background-color: white;
+    color: #3c7962;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1040;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-bar button {
+    background: none;
+    border: none;
+    color: #3c7962;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .top-bar a {
+    color: #3c7962;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-left: 10px;
+  }
+  /* CENTRADO CORRECTO DE LA TABLA */
+  .content-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .table {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .table th {
+    background-color: #3c7962;
+    color: white;
+    text-transform: uppercase;
+    padding: 15px;
+    vertical-align: middle;
+  }
+  .table td {
+    padding: 12px;
+    vertical-align: middle;
+    font-size: 0.95rem;
+  }
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f6fc;
+  }
+  .table-striped tbody tr:hover {
+    background-color: #d6e0f5;
+  }
+  .btn-sm {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 8px;
+  }
+  footer {
+    text-align: center;
+  }
+  /* ESTILOS PARA LOS FILTROS */
+  #filtroZona .card-body > .row > div {
+    margin-bottom: 15px; /* Espacio entre los filtros */
+  }
+  #filtroZona .card-body > .row {
+    flex-direction: column; /* Apilar los elementos del formulario */
+  }
+  #filtroZona .text-center {
+    margin-top: 20px; /* Espacio para el botón de aplicar filtros */
+  }
+  /* ESTILOS PARA ALINEAR EL BOTÓN A LA DERECHA */
+  .list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .list-header h2 {
+    margin-bottom: 0; /* Para que esté alineado verticalmente con el botón */
+  }
+
+  .nav-logo {
+    height: 40px;
+}
+
+#preferences-container .preferences-form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#preferences-container .form-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+#preferences-container .form-check {
+  margin-bottom: 8px;
+}
+
+#preferences-container .form-check-input {
+  margin-right: 5px;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  width: 1.25em;
+  height: 1.25em;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+#preferences-container .form-check-input:checked {
+  background-color: #3c7962; /* Rellenar con el color */
+  border-color: #3c7962;
+  color: white; /* Opcional: cambiar el color del texto si lo hubiera */
+}
+
+#preferences-container .form-check-input:hover {
+  border-color: #3c7962;
+}
+
+#preferences-container select.form-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+#preferences-container .btn-primary {
+  background-color: #3c7962;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#preferences-container .btn-primary:hover {
+  background-color: #2f5d4a;
+}
+
+#preferences-container .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#preferences-container .btn-secondary:hover {
+  background-color: #545b62;
+}

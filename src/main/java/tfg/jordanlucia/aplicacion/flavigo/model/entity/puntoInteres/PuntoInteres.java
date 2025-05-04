@@ -1,25 +1,14 @@
-package tfg.jordanlucia.aplicacion.flavigo.model.entity;
+package tfg.jordanlucia.aplicacion.flavigo.model.entity.puntoInteres;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalTime;
-
-import org.antlr.v4.runtime.misc.NotNull;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Size;
-
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) 
 @Table(name = "punto_interes")
+
 public class PuntoInteres {
 
     @Id
@@ -252,4 +241,6 @@ public class PuntoInteres {
 		this.etiquetas = etiquetas;
 		this.telefono = telefono;
 	}
+
+   
 }

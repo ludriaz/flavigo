@@ -25,8 +25,29 @@ public class FiltroPaginadoDatatables {
 
     private List<Map<String, String>> search;
 
-    // Eliminamos la clase DataTableColumn y volvemos a usar List<Map<String, String>> para columns
-    private List<Map<String, String>> columns;
+    // Clase para reflejar la estructura de columnas de DataTables
+    public static class DataTableColumn {
+        private String data;
+        private String name;
+        private Search search;
+        // getters y setters
+        public String getData() { return data; }
+        public void setData(String data) { this.data = data; }
+        public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+        public Search getSearch() { return search; }
+        public void setSearch(Search search) { this.search = search; }
+        public static class Search {
+            private String value;
+            private Boolean regex;
+            public String getValue() { return value; }
+            public void setValue(String value) { this.value = value; }
+            public Boolean getRegex() { return regex; }
+            public void setRegex(Boolean regex) { this.regex = regex; }
+        }
+    }
+
+    private List<DataTableColumn> columns;
 
     public FiltroPaginadoDatatables() {
         this.columns = new ArrayList<>();
@@ -74,11 +95,11 @@ public class FiltroPaginadoDatatables {
         this.order = order;
     }
 
-    public List<Map<String, String>> getColumns() {
+    public List<DataTableColumn> getColumns() {
         return columns;
     }
 
-    public void setColumns(List<Map<String, String>> columns) {
+    public void setColumns(List<DataTableColumn> columns) {
         this.columns = columns;
     }
 
@@ -114,7 +135,7 @@ public class FiltroPaginadoDatatables {
         if(!StringUtils.isEmpty(order)) {
         	for (Map<String, String> ord : order) {
         		int n = Integer.parseInt(ord.get("column"));
-        		Sort sort = Sort.by(Direction.fromString(ord.get("dir")), columns.get(n).get("name"));
+        		Sort sort = Sort.by(Direction.fromString(ord.get("dir")), columns.get(n).getName());
         		listSort.add(sort);
         	}
         }

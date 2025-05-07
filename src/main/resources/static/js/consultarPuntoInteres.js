@@ -72,12 +72,3 @@ function borrar(id) {
     console.log('Borrar punto de interés con ID: ' + id);
     // Aquí iría la lógica para borrar
 }
-
-function planify(data) {
-    for (var i = 0; i < data.columns.length; i++) {
-        var column = data.columns[i];
-        column.searchRegex = column.search.regex;
-        column.searchValue = column.search.value;
-        delete(column.search);
-    }
-}

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.util.StringUtils;
+import java.io.Serializable;
 
 public class FiltroPaginadoDatatables {
 
@@ -17,13 +18,19 @@ public class FiltroPaginadoDatatables {
     private Integer start;
 
     private List<Map<String, String>> order;
-    private List<Map<String, String>> columns;
 
     private boolean exportar;
 
     private Integer id;
 
     private List<Map<String, String>> search;
+
+    // Eliminamos la clase DataTableColumn y volvemos a usar List<Map<String, String>> para columns
+    private List<Map<String, String>> columns;
+
+    public FiltroPaginadoDatatables() {
+        this.columns = new ArrayList<>();
+    }
 
     // Getters y Setters
 

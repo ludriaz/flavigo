@@ -1,5 +1,6 @@
 package tfg.jordanlucia.aplicacion.flavigo.web.helper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,14 +18,54 @@ public class FiltroPaginadoDatatables {
     private Integer start;
 
     private List<Map<String, String>> order;
-    private List<Map<String, String>> columns;
+    
+   // private List<Map<String, String>> columns;
 
     private boolean exportar;
 
-    private Integer id;
+    private int id;
 
     private List<Map<String, String>> search;
+    
+    
+    
+ // Nueva clase para reflejar la estructura de columnas de DataTables
+    public static class DataTableColumn implements Serializable {
+        private String data;
+        private String name;
+        private Boolean searchable;
+        private Boolean orderable;
+        private Search search;
 
+        public static class Search implements Serializable {
+            private String value;
+            private Boolean regex;
+            public String getValue() { return value; }
+            public void setValue(String value) { this.value = value; }
+            public Boolean getRegex() { return regex; }
+            public void setRegex(Boolean regex) { this.regex = regex; }
+        }
+
+        public String getData() { return data; }
+        public void setData(String data) { this.data = data; }
+        public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+        public Boolean getSearchable() { return searchable; }
+        public void setSearchable(Boolean searchable) { this.searchable = searchable; }
+        public Boolean getOrderable() { return orderable; }
+        public void setOrderable(Boolean orderable) { this.orderable = orderable; }
+        public Search getSearch() { return search; }
+        public void setSearch(Search search) { this.search = search; }
+    }
+
+    private List<DataTableColumn> columns;
+    
+    public FiltroPaginadoDatatables() {
+        this.columns = new ArrayList<>();
+    }
+    
+    
+    
     // Getters y Setters
 
     public Integer getDraw() {
@@ -67,13 +108,6 @@ public class FiltroPaginadoDatatables {
         this.order = order;
     }
 
-    public List<Map<String, String>> getColumns() {
-        return columns;
-    }
-
-    public void setColumns(List<Map<String, String>> columns) {
-        this.columns = columns;
-    }
 
     public boolean isExportar() {
         return exportar;
@@ -83,23 +117,33 @@ public class FiltroPaginadoDatatables {
         this.exportar = exportar;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public List<Map<String, String>> getSearch() {
-        return search;
-    }
-
-    public void setSearch(List<Map<String, String>> search) {
-        this.search = search;
-    }
+   
     
-    public Sort getOrdenacionSort() {
+    public List<Map<String, String>> getSearch() {
+		return search;
+	}
+
+	public void setSearch(List<Map<String, String>> search) {
+		this.search = search;
+	}
+
+	public List<DataTableColumn> getColumns() {
+		return columns;
+	}
+
+	public void setColumns(List<DataTableColumn> columns) {
+		this.columns = columns;
+	}
+
+	public Sort getOrdenacionSort() {
        
 
         Sort sortCompleto = Sort.unsorted();
@@ -107,7 +151,7 @@ public class FiltroPaginadoDatatables {
         if(!StringUtils.isEmpty(order)) {
         	for (Map<String, String> ord : order) {
         		int n = Integer.parseInt(ord.get("column"));
-        		Sort sort = Sort.by(Direction.fromString(ord.get("dir")), columns.get(n).get("name"));
+        		Sort sort = Sort.by(Direction.fromString(ord.get("dir")), columns.get(n).getName());
         		listSort.add(sort);
         	}
         }

@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tfg.jordanlucia.aplicacion.flavigo.config.security.SecurityConfig;
+import tfg.jordanlucia.aplicacion.flavigo.model.entity.puntoInteres.PuntoInteres;
 import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.PuntoInteresDTO;
 import tfg.jordanlucia.aplicacion.flavigo.web.helper.JsonPaginationWrapper;
 import tfg.jordanlucia.aplicacion.flavigo.web.model.PuntoInteresFilter;
@@ -39,11 +41,11 @@ public class PuntoInteresController {
     }
 
     @GetMapping("/ConsultarPuntoInteresJSON")
-    public @ResponseBody JsonPaginationWrapper<PuntoInteresDTO> getPuntosInteresJSON(@ModelAttribute PuntoInteresFilter filter) {
+    public @ResponseBody JsonPaginationWrapper<PuntoInteres> getPuntosInteresJSON(
+    		@RequestParam("draw") int draw, @RequestParam("start") int start, @RequestParam("length") int length,
+    		@RequestParam("nombre") String nombre, @RequestParam("tipo") String tipo, @RequestParam(name = "idPuntoInteres", required = false) Integer id) {
+    	final PuntoInteresFilter filter= new PuntoInteresFilter();
     	
-    	if(filter == null) {
-    		filter = new PuntoInteresFilter();
-    	}
     	
     	if(filter.getLength() == null) {
     		filter.setLength(10);
@@ -58,7 +60,13 @@ public class PuntoInteresController {
     		
     	}
     	
-        Page<PuntoInteresDTO> resultado = service.search(filter);
+    	filter.setIdPuntoInteres(id);
+    	filter.setNombre("".equalsIgnoreCase(nombre)?null:nombre);
+    	filter.setTipo("".equalsIgnoreCase(tipo)?null:tipo);
+    	
+    	
+    	
+        Page<PuntoInteres> resultado = service.search(filter);
         
         return new JsonPaginationWrapper<>(resultado, filter.getDraw());
     }

@@ -1,11 +1,11 @@
 $(document).ready(function() {
     console.log('Script consultarPuntoInteres.js cargado');
 
-    var urlConsultaPuntoInteres =/*[[@{/admin/PuntoInteres/ConsultarPuntoInteresJSON}]]*/ '';
+	var urlConsultaPuntoInteres ='http://localhost:8080/admin/PuntoInteres/ConsultarPuntoInteresJSON';
     var urlParams = new URLSearchParams(window.location.search); // Lee los parámetros de la URL
 
     var puntosInteresTable = $('#puntosInteresTable').DataTable({
-        "processing": true,
+        
         "serverSide": true,
         "ajax": {
             "url": urlConsultaPuntoInteres,
@@ -13,7 +13,7 @@ $(document).ready(function() {
             "data": function (data) {
                 data.nombre = $('#filtroNombre').val();
                 data.tipo = $('#filtroTipo').val();
-                data.id = $('#filtroId').val();
+                data.idPuntoInteres = $('#filtroId').val();
 
                 // Agrega los parámetros de la URL al objeto de datos si existen
                 urlParams.forEach(function(value, key) {
@@ -21,12 +21,14 @@ $(document).ready(function() {
                 });
                 // Eliminando la llamada a planify
                 // planify(data); // Aplicamos la función planify
-            }
+				return data;
+            },
+			"dataSrc":''
         },
         "columns": [
             { "data": "id" },
             { "data": "nombre" },
-            { "data": "tipo" },
+            
             {
                 "data": null,
                 "render": function(data, type, row) {
@@ -55,11 +57,11 @@ $(document).ready(function() {
         "columnDefs": [
             { "targets": 0, "name": "id" },
             { "targets": 1, "name": "nombre" },
-            { "targets": 2, "name": "tipo" },
+            
             // La dirección y las coordenadas no tienen un "data" directo, así que usamos el "name" definido en "columns"
-            { "targets": 3, "orderable": true }, // Dirección
-            { "targets": 4, "orderable": false }, // Coordenadas (generalmente no ordenables)
-            { "targets": 5, "orderable": false }  // Acciones
+            { "targets": 2, "orderable": true }, // Dirección
+            { "targets": 3, "orderable": false }, // Coordenadas (generalmente no ordenables)
+            { "targets": 4, "orderable": false }  // Acciones
         ],
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json"

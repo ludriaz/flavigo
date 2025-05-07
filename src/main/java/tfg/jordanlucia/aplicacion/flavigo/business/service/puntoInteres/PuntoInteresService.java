@@ -63,7 +63,7 @@ public class PuntoInteresService implements PuntoInteresServiceInterface {
     
     @Override
     @Transactional(readOnly = true)
-    public Page<PuntoInteresDTO> search(PuntoInteresFilter filtro) {
+    public Page<PuntoInteres> search(PuntoInteresFilter filtro) {
         Pageable pageable = PageRequest.of(
         		filtro.getPage() == null ? filtro.getStart() : filtro.getPage(),
         		filtro.getLength(),
@@ -71,10 +71,9 @@ public class PuntoInteresService implements PuntoInteresServiceInterface {
         		);
 
       
-        Page<PuntoInteresDTO> page = puntoInteresRepository.findAllWithTipo(
-            filtro.getId(),
-            filtro.getNombre(),
-            filtro.getTipo(),
+        
+        
+        Page<PuntoInteres> page = puntoInteresRepository.findAll(
             pageable
         );
 

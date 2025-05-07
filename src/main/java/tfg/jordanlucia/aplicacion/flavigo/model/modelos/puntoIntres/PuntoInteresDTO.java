@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalTime;
 
 public class PuntoInteresDTO {
-    private int id;
+    private Integer id;
     private String nombre;
     private String descripcionBreve;
     private String descripcionDetallada;
@@ -30,7 +30,7 @@ public class PuntoInteresDTO {
     }
 
  
-    public PuntoInteresDTO(int id, String nombre, String descripcionBreve, String descripcionDetallada, BigDecimal latitud, BigDecimal longitud, String calle, String numero, String localidad, String url, String imagen, LocalTime horarioAperturaManana, LocalTime horarioAperturaTarde, LocalTime horarioCierreManana, LocalTime horarioCierreTarde, String etiquetas, String telefono, String tipo) {
+    public PuntoInteresDTO(Integer id, String nombre, String descripcionBreve, String descripcionDetallada, BigDecimal latitud, BigDecimal longitud, String calle, String numero, String localidad, String url, String imagen, LocalTime horarioAperturaManana, LocalTime horarioAperturaTarde, LocalTime horarioCierreManana, LocalTime horarioCierreTarde, String etiquetas, String telefono, String tipo) {
         this.id = id;
         this.nombre = nombre;
         this.descripcionBreve = descripcionBreve;
@@ -52,11 +52,11 @@ public class PuntoInteresDTO {
     }
 
  
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

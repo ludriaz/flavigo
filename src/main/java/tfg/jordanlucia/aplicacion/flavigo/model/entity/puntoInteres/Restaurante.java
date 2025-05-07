@@ -3,6 +3,7 @@ package tfg.jordanlucia.aplicacion.flavigo.model.entity.puntoInteres;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 import tfg.jordanlucia.aplicacion.flavigo.ENUMS.enums.Ambiente;
 import tfg.jordanlucia.aplicacion.flavigo.ENUMS.enums.RangoPrecios;
 import tfg.jordanlucia.aplicacion.flavigo.ENUMS.enums.TipoCocina;
@@ -12,6 +13,7 @@ import jakarta.persistence.Enumerated;
 
 
 @Entity
+@Table(name = "TD_RESTAURANTE")
 @PrimaryKeyJoinColumn(name = "id") 
 public class Restaurante extends PuntoInteres {
 

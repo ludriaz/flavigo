@@ -6,12 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 import tfg.jordanlucia.aplicacion.flavigo.ENUMS.enums.TipoTuristico;
 
 
 
 
 @Entity
+@Table(name = "TD_TURISTICO")
 @PrimaryKeyJoinColumn(name = "id") 
 public class Turistico extends PuntoInteres {
 

@@ -3,7 +3,7 @@ package tfg.jordanlucia.aplicacion.flavigo.model.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "TD_Parada")
+@Table(name = "TD_PARADA")
 @SequenceGenerator(name = "parada_seq", sequenceName = "parada_seq", initialValue = 0, allocationSize = 1)
 public class Parada {
 

@@ -8,6 +8,7 @@ import tfg.jordanlucia.aplicacion.flavigo.ENUMS.enums.TipoAlojamiento;
 
 
 @Entity
+@Table(name = "TD_ALOJAMIENTO")
 @PrimaryKeyJoinColumn(name = "id") 
 public class Alojamiento extends PuntoInteres {
 

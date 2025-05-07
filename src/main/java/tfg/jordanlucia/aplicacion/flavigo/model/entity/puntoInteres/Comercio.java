@@ -8,7 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 @Entity
-@PrimaryKeyJoinColumn(name = "id") // Indicamos que la PK es la misma que la de PuntoInteres
+@PrimaryKeyJoinColumn(name = "id") 
 public class Comercio extends PuntoInteres {
 
     @Enumerated(EnumType.STRING)

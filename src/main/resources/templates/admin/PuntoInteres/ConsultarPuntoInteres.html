@@ -1,148 +1,117 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel de Administración</title>
-<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" >-->
-<link rel="stylesheet" th:href="@{/css/boostrap/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/css/boostrap/bootstrap-icons.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" th:href="@{/css/boostrap/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/boostrap/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/tables-forms.css}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
 
-<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">-->
-
-<link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
-
-<link rel="stylesheet" th:href="@{/css/tables-forms.css}">
-<script th:src="@{/js/sidebar.js}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script th:src="@{/js/sidebar.js}"></script>
+    <script th:src="@{/js/consultarPuntoInteres.js}"></script>
 </head>
 <body>
-	<div th:insert="~{admin/fragmentos/sidebar :: sidebar}"></div>
+    <!-- Sidebar -->
+    <div th:insert="~{admin/fragmentos/sidebar :: sidebar}"></div>
 
-	<div class="content" id="content">
-		<div th:insert="~{admin/fragmentos/navbar :: navbar}"></div>
+    <!-- Contenido Principal -->
+    <div class="content" id="content">
+        
+        <!-- Navbar -->
+        <div th:insert="~{admin/fragmentos/navbar :: navbar}"></div>
 
+        <!-- Contenedor del contenido -->
+        <div class="content-wrapper">
+            
+            <!-- Cabecera de la lista -->
+            <div class="list-header">
+                <h2>Listado de Puntos de Interés</h2>
+                <button type="button" class="btn btn-custom w-100">Añadir Nuevo</button>
+            </div>
 
-		<div class="content" id="content">
-			<div class="content-wrapper">
-				<div class="list-header">
-					<h2>Listado de Puntos de Interés</h2>
-					<button type="button" class="btn btn-custom w-100">Añadir
-						Nuevo</button>
-				</div>
+            <!-- Tarjeta de filtros -->
+            <div class="card mb-4">
+                <div class="card-header text-center">
+                    <button class="btn btn-outline-secondary" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#filtroZona"
+                        aria-expanded="false" aria-controls="filtroZona">
+                        Mostrar/Ocultar Filtros
+                    </button>
+                </div>
 
-				<div class="card mb-4">
-					<div class="card-header text-center">
-						<button class="btn btn-outline-secondary" type="button"
-							data-bs-toggle="collapse" data-bs-target="#filtroZona"
-							aria-expanded="false" aria-controls="filtroZona">
-							Mostrar/Ocultar Filtros</button>
-					</div>
-					<div class="collapse" id="filtroZona">
-						<div class="card-body">
-							<div class="row g-3">
-								<div class="col-md-12">
-									<label for="filtroNombre" class="form-label">Filtrar
-										por Nombre</label> <input type="text" class="form-control"
-										id="filtroNombre" placeholder="Nombre">
-								</div>
-								<div class="col-md-12">
-									<label for="filtroTipo" class="form-label">Filtrar por
-										Tipo</label> <select class="form-select" id="filtroTipo">
-										<option selected>Todos</option>
-										<option value="tipo1">Tipo 1</option>
-										<option value="tipo2">Tipo 2</option>
-									</select>
-								</div>
-								<div class="col-md-12">
-									<label for="filtroId" class="form-label">Filtrar por ID</label>
-									<input type="number" class="form-control" id="filtroId"
-										placeholder="ID">
-								</div>
+                <!-- Contenido de filtros -->
+                <div class="collapse" id="filtroZona">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <!-- Filtro por nombre -->
+                            <div class="col-md-12">
+                                <label for="filtroNombre" class="form-label">Filtrar por Nombre</label>
+                                <input type="text" class="form-control" id="filtroNombre" placeholder="Nombre">
+                            </div>
 
-							</div>
-							<div class="mt-4 text-center">
-								<button type="button" class="btn btn-custom w-100">Aplicar
-									Filtros</button>
-							</div>
-						</div>
-					</div>
-				</div>
+                            <!-- Filtro por tipo -->
+                            <div class="col-md-12">
+                                <label for="filtroTipo" class="form-label">Filtrar por Tipo</label>
+                                <select class="form-select" id="filtroTipo">
+                                    <option value="">Todos</option>
+                                    <option value="Comercio">Comercio</option>
+                                    <option value="Evento">Evento</option>
+                                    <option value="Actividad">Actividad</option>
+                                    <option value="Bar_Cafeteria">Bar/Cafetería</option>
+                                    <option value="Restaurante">Restaurante</option>
+                                    <option value="Alojamiento">Alojamiento</option>
+                                    <option value="Turistico">Turístico</option>
+                                    <option value="PuntoInteres">Punto de Interés</option>
+                                </select>
+                            </div>
 
-				<table class="table table-striped text-center">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nombre</th>
-							<th>Tipo</th>
-							<th>Dirección</th>
-							<th>Ubicación</th>
-							<th>Acciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Restaurante El Mar</td>
-							<td>Restaurante</td>
-							<td>Calle del Mar, 24</td>
-							<td>Lat: 43.3667, Lon: -3.2833</td>
-							<td>
-								<button class="btn btn-warning btn-sm" onclick="editar(2)">Editar</button>
-								<button class="btn btn-danger btn-sm" onclick="borrar(2)">Borrar</button>
-							</td>
-						</tr>
+                            <!-- Filtro por ID -->
+                            <div class="col-md-12">
+                                <label for="filtroId" class="form-label">Filtrar por ID</label>
+                                <input type="number" class="form-control" id="filtroId" placeholder="ID">
+                            </div>
+                        </div>
 
-						<tr>
-							<td>2</td>
-							<td>Hotel Playa Azul</td>
-							<td>Alojamiento</td>
-							<td>Avenida Costa, 1</td>
-							<td>Lat: 43.3700, Lon: -3.2750</td>
-							<td>
-								<button class="btn btn-warning btn-sm" onclick="editar(2)">Editar</button>
-								<button class="btn btn-danger btn-sm" onclick="borrar(2)">Borrar</button>
-							</td>
-						</tr>
+                        <!-- Botón aplicar filtros -->
+                        <div class="mt-4 text-center">
+                            <button type="button" class="btn btn-custom w-100" id="aplicarFiltros">
+                                Aplicar Filtros
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-						<tr>
-							<td>3</td>
-							<td>Comercio La Tienda</td>
-							<td>Comercio</td>
-							<td>Calle Mayor, 12</td>
-							<td>Lat: 43.3800, Lon: -3.2650</td>
-							<td>
-								<button class="btn btn-warning btn-sm" onclick="editar(2)">Editar</button>
-								<button class="btn btn-danger btn-sm" onclick="borrar(2)">Borrar</button>
-							</td>
-						</tr>
+            <!-- Tabla de resultados -->
+            <table id="puntosInteresTable" class="table table-striped text-center">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Dirección</th>
+                        <th>Ubicación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se insertarán los datos dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-						<tr>
-							<td>4</td>
-							<td>Café Central</td>
-							<td>Bar/Cafetería</td>
-							<td>Calle del Sol, 10</td>
-							<td>Lat: 43.3850, Lon: -3.2500</td>
-							<td>
-								<button class="btn btn-warning btn-sm" onclick="editar(2)">Editar</button>
-								<button class="btn btn-danger btn-sm" onclick="borrar(2)">Borrar</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-
-	<footer class="bg-light py-3 mt-4 fixed-bottom">
-		<div class="container">
-			<p class="mb-0">&copy; 2025 Flavigo. Todos los derechos
-				reservados.</p>
-		</div>
-	</footer>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	
+    <!-- Footer -->
+    <footer class="bg-light py-3 mt-4 fixed-bottom">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Flavigo. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 </body>
 </html>

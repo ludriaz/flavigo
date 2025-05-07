@@ -1,10 +1,13 @@
 package tfg.jordanlucia.aplicacion.flavigo.web.helper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.util.StringUtils;
 
 public class FiltroPaginadoDatatables {
 
@@ -18,7 +21,7 @@ public class FiltroPaginadoDatatables {
 
     private boolean exportar;
 
-    private int id;
+    private Integer id;
 
     private List<Map<String, String>> search;
 
@@ -80,11 +83,11 @@ public class FiltroPaginadoDatatables {
         this.exportar = exportar;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -97,33 +100,27 @@ public class FiltroPaginadoDatatables {
     }
     
     public Sort getOrdenacionSort() {
-        if (order == null || columns == null) {
-            return Sort.unsorted();
+       
+
+        Sort sortCompleto = Sort.unsorted();
+        List<Sort> listSort = new ArrayList<>();
+        if(!StringUtils.isEmpty(order)) {
+        	for (Map<String, String> ord : order) {
+        		int n = Integer.parseInt(ord.get("column"));
+        		Sort sort = Sort.by(Direction.fromString(ord.get("dir")), columns.get(n).get("name"));
+        		listSort.add(sort);
+        	}
+        }
+        
+        for(int i = 0; !listSort.isEmpty() && i < listSort.size(); i++) {
+        	if( i == 0) {
+        		sortCompleto = listSort.get(i);
+        	} else {
+        		sortCompleto = sortCompleto.and(listSort.get(i));
+        	}
         }
 
-        Sort sort = Sort.unsorted();
-
-        for (Map<String, String> orden : order) {
-            String columnIndexStr = orden.get("column");
-            String dir = orden.get("dir");
-
-            if (columnIndexStr != null && dir != null) {
-                try {
-                    int columnIndex = Integer.parseInt(columnIndexStr);
-                    String columnName = columns.get(columnIndex).get("data");
-
-                    Sort.Direction direction = dir.equalsIgnoreCase("asc") ?
-                            Sort.Direction.ASC : Sort.Direction.DESC;
-
-                    Sort currentSort = Sort.by(direction, columnName);
-                    sort = sort.and(currentSort);
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    // Ignorar errores
-                }
-            }
-        }
-
-        return sort;
+        return sortCompleto;
     }
 
     public Pageable getPageable() {

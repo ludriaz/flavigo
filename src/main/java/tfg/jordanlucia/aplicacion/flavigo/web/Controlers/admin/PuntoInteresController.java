@@ -9,22 +9,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tfg.jordanlucia.aplicacion.flavigo.config.security.SecurityConfig;
 import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.PuntoInteresDTO;
 import tfg.jordanlucia.aplicacion.flavigo.web.helper.JsonPaginationWrapper;
 import tfg.jordanlucia.aplicacion.flavigo.web.model.PuntoInteresFilter;
 import tfg.jordanlucia.aplicacion.flavigo.business.service.puntoInteres.PuntoInteresService;
 
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/admin/PuntoInteres")
 public class PuntoInteresController {
+
+    private final SecurityConfig securityConfig;
 
     private static final String LISTA_PUNTOS = "listaPuntos";
 
     @Autowired
     private PuntoInteresService service;
+
+    PuntoInteresController(SecurityConfig securityConfig) {
+        this.securityConfig = securityConfig;
+    }
 
     @GetMapping("/ConsultarPuntoInteres")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -54,6 +59,7 @@ public class PuntoInteresController {
     	}
     	
         Page<PuntoInteresDTO> resultado = service.search(filter);
+        
         return new JsonPaginationWrapper<>(resultado, filter.getDraw());
     }
 }

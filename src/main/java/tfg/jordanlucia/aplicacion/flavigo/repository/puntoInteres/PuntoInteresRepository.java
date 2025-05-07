@@ -91,9 +91,9 @@ public interface PuntoInteresRepository extends JpaRepository<PuntoInteres, Inte
 		    """,
 		    nativeQuery = true)
 			Page<PuntoInteresDTO> findAllWithTipo(
-		    @Param("id") Integer id,
-		    @Param("nombre") String nombre,
-		    @Param("tipo") String tipo,
-		    Pageable pageable
+					@Param("id") Integer id,
+					@Param("nombre") String nombre,
+					@Param("tipo") String tipo,
+					Pageable pageable
 		);
 }

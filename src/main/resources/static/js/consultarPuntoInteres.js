@@ -10,7 +10,7 @@ $(document).ready(function() {
                 d.nombre = $('#filtroNombre').val();
                 d.tipo = $('#filtroTipo').val();
                 d.id = $('#filtroId').val();
-                planify(d); // Llamamos a la función planify para modificar la estructura de las columnas
+               // planify(d); // Llamamos a la función planify para modificar la estructura de las columnas
                 // DataTables seguirá enviando sus parámetros estándar (draw, start, length, search, order, columns)
             }
         },

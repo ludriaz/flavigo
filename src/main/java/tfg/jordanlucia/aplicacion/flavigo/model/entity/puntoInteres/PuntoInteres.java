@@ -12,7 +12,7 @@ public class PuntoInteres {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @NotNull
     @Size(max = 100)
@@ -72,11 +72,11 @@ public class PuntoInteres {
     @Column(name = "telefono", length = 20)
     private String telefono;
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -214,7 +214,7 @@ public class PuntoInteres {
 		super();
 	}
 
-	public PuntoInteres(Integer id, @NotNull @Size(max = 100) String nombre, String descripcionBreve,
+	public PuntoInteres(int id, @NotNull @Size(max = 100) String nombre, String descripcionBreve,
 			String descripcionDetallada, @Digits(integer = 3, fraction = 7) BigDecimal latitud,
 			@Digits(integer = 3, fraction = 7) BigDecimal longitud, @Size(max = 100) String calle,
 			@Size(max = 10) String numero, @Size(max = 100) String localidad, @Size(max = 255) String url,

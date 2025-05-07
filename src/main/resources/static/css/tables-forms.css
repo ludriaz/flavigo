@@ -5,7 +5,7 @@ body {
     padding-top: 60px;
     overflow-x: hidden;
     margin: 0;
-    background-image: url('/img/body.png');
+   background-image: url('/img/body.png');
     font-family: 'Poppins', sans-serif;
     background-size: cover;
     height: 100vh;
@@ -163,7 +163,11 @@ input::placeholder {
     text-align: center;
     margin-bottom: 20px;
   }
-
+  .btn-primary {
+    /* display: block; */ /* Lo comentamos para usar flexbox */
+    /* margin: 0 auto; */ /* Lo comentamos para usar flexbox */
+    /* text-align: center; */ /* Lo comentamos para usar flexbox */
+  }
   .table {
     margin-top: 20px;
     background-color: #fff;
@@ -299,3 +303,4 @@ input::placeholder {
 #preferences-container .btn-secondary:hover {
   background-color: #545b62;
 }
+

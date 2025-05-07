@@ -13,7 +13,6 @@ import tfg.jordanlucia.aplicacion.flavigo.ENUMS.enums.TipoActividad;
 @Entity
 @Table(name = "TD_ACTIVIDAD")
 @PrimaryKeyJoinColumn(name = "id") 
-@Table(name = "TD_PUNTO_INTERES")
 public class Actividad extends PuntoInteres {
 
 		@Enumerated(EnumType.STRING)

@@ -10,7 +10,18 @@ $(document).ready(function() {
                 d.nombre = $('#filtroNombre').val();
                 d.tipo = $('#filtroTipo').val();
                 d.id = $('#filtroId').val();
-               // planify(d); // Llamamos a la función planify para modificar la estructura de las columnas
+                // Elimina los search.regex de cada columna para evitar errores de binding
+                if (d.columns) {
+                    d.columns.forEach(function(col) {
+                        if (col.search) {
+                            delete col.search.regex;
+                        }
+                    });
+                }
+                if (d.search) {
+                    delete d.search.regex;
+                }
+                // planify(d); // Llamamos a la función planify para modificar la estructura de las columnas
                 // DataTables seguirá enviando sus parámetros estándar (draw, start, length, search, order, columns)
             }
         },

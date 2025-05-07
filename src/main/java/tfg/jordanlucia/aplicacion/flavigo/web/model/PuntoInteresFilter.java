@@ -6,9 +6,9 @@ public class PuntoInteresFilter extends FiltroPaginadoDatatables{
 
     private String nombre;    
     private String tipo;      
-    private int id;       
+    private Integer id;       
 
-    // Constructor vacío
+   
     public PuntoInteresFilter() {
     }
 
@@ -33,7 +33,7 @@ public class PuntoInteresFilter extends FiltroPaginadoDatatables{
         return id;
     }
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
     

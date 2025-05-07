@@ -7,8 +7,7 @@ import java.time.LocalTime;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) 
-@Table(name = "punto_interes")
-
+@Table(name = "TD_PUNTO_INTERES")
 public class PuntoInteres {
 
     @Id

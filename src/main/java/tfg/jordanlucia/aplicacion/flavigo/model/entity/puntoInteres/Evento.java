@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
+@Table(name = "TD_EVENTO")
 @PrimaryKeyJoinColumn(name = "id") // Usa el id de PuntoInteres
 public class Evento extends PuntoInteres {
 

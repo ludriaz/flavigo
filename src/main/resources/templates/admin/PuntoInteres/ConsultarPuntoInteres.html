@@ -29,7 +29,7 @@
 
             <div class="list-header">
                 <h2>Listado de Puntos de Interés</h2>
-                <button type="button" class="btn btn-custom w-100">Añadir Nuevo</button>
+                <a th:href="@{/admin/PuntoInteres/Nuevo}" class="btn btn-custom w-100">Añadir Nuevo</a>
             </div>
 
             <div class="card mb-4">
@@ -81,10 +81,14 @@
 
             <table id="puntosInteresTable" class="table table-striped text-center">
                 <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                    </tr>
+                   <tr>
+    <th>Id</th>
+    <th>Nombre</th>
+    <th>Tipo</th>
+    <th>Dirección</th>
+    <th>Ubicación</th>
+    <th>Acciones</th>
+</tr>
                 </thead>
                 <tbody>
                     </tbody>

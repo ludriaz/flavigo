@@ -2,6 +2,8 @@ package tfg.jordanlucia.aplicacion.flavigo.model.entity.puntoInteres;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import tfg.jordanlucia.aplicacion.flavigo.ENUMS.enums.TipoPuntoInteres;
+
 import java.math.BigDecimal;
 import java.time.LocalTime;
 
@@ -71,6 +73,19 @@ public class PuntoInteres {
     @Size(max = 20)
     @Column(name = "telefono", length = 20)
     private String telefono;
+    
+    @Column(name = "tipo")
+    @Enumerated(EnumType.STRING)
+    private TipoPuntoInteres tipo;
+    
+
+	public TipoPuntoInteres getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoPuntoInteres tipo) {
+		this.tipo = tipo;
+	}
 
 	public int getId() {
 		return id;

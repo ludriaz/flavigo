@@ -80,7 +80,10 @@ public class PuntoInteresService implements PuntoInteresServiceInterface {
     
         return page;
     }
-    
+
+    public PuntoInteres findById(int id) {
+        return puntoInteresRepository.findById(id).orElse(null);
+    }
     
     
 }

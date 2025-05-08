@@ -6,13 +6,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tfg.jordanlucia.aplicacion.flavigo.config.security.SecurityConfig;
 import tfg.jordanlucia.aplicacion.flavigo.model.entity.puntoInteres.PuntoInteres;
-import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.PuntoInteresDTO;
 import tfg.jordanlucia.aplicacion.flavigo.web.helper.JsonPaginationWrapper;
 import tfg.jordanlucia.aplicacion.flavigo.web.model.PuntoInteresFilter;
 import tfg.jordanlucia.aplicacion.flavigo.business.service.puntoInteres.PuntoInteresService;
@@ -46,24 +44,12 @@ public class PuntoInteresController {
     		@RequestParam("nombre") String nombre, @RequestParam("tipo") String tipo, @RequestParam(name = "idPuntoInteres", required = false) Integer id) {
     	final PuntoInteresFilter filter= new PuntoInteresFilter();
     	
-    	
-    	if(filter.getLength() == null) {
-    		filter.setLength(10);
-    	}
-    	
-    	if(filter.getPage() == null) {
-    		filter.setPage(0);
-    	}
-    	
-    	if(filter.getDraw() == null) {
-    		filter.setDraw(0);
-    		
-    	}
-    	
     	filter.setIdPuntoInteres(id);
     	filter.setNombre("".equalsIgnoreCase(nombre)?null:nombre);
     	filter.setTipo("".equalsIgnoreCase(tipo)?null:tipo);
-    	
+    	filter.setDraw(draw);
+    	filter.setPage(start / length);
+    	filter.setLength(length);
     	
     	
         Page<PuntoInteres> resultado = service.search(filter);

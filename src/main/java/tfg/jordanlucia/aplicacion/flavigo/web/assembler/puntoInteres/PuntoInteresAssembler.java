@@ -1,5 +1,6 @@
 package tfg.jordanlucia.aplicacion.flavigo.web.assembler.puntoInteres;
 
+import tfg.jordanlucia.aplicacion.flavigo.ENUMS.enums.TipoPuntoInteres;
 import tfg.jordanlucia.aplicacion.flavigo.model.entity.puntoInteres.PuntoInteres;
 import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.PuntoInteresDTO;
 
@@ -27,6 +28,7 @@ public class PuntoInteresAssembler {
         dto.setHorarioCierreTarde(puntoInteres.getHorarioCierreTarde());
         dto.setEtiquetas(puntoInteres.getEtiquetas());
         dto.setTelefono(puntoInteres.getTelefono());
+        dto.setTipo(puntoInteres.getTipo().name());
 
         return dto;
     }
@@ -53,6 +55,7 @@ public class PuntoInteresAssembler {
         puntoInteres.setHorarioCierreTarde(dto.getHorarioCierreTarde());
         puntoInteres.setEtiquetas(dto.getEtiquetas());
         puntoInteres.setTelefono(dto.getTelefono());
+        puntoInteres.setTipo(TipoPuntoInteres.valueOf(dto.getTipo()));
 
         return puntoInteres;
     }

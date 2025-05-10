@@ -6,7 +6,7 @@ public class UsuarioModelo {
     private String nombre;
     private String email;
     private String contrasena;
-    private PuntoDeInteresModelo local;
+    private Boolean local;
     private String rol;
     private String fotoPerfil;
 
@@ -15,7 +15,7 @@ public class UsuarioModelo {
     }
 
     // Constructor completo
-    public UsuarioModelo(Integer  id, String nombre, String email, String contrasena, PuntoDeInteresModelo local, String rol, String fotoPerfil) {
+    public UsuarioModelo(Integer  id, String nombre, String email, String contrasena, Boolean local, String rol, String fotoPerfil) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -58,11 +58,11 @@ public class UsuarioModelo {
         this.contrasena = contrasena;
     }
 
-    public PuntoDeInteresModelo getLocal() {
+    public Boolean getLocal() {
         return local;
     }
 
-    public void setLocal(PuntoDeInteresModelo local) {
+    public void setLocal(Boolean local) {
         this.local = local;
     }
 

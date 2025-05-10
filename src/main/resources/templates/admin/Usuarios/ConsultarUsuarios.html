@@ -5,8 +5,8 @@
 <meta charset="UTF-8">
 
 <!-- CSRF protection -->
-<meta name="_csrf" th:content="${_csrf.token}"/>
-<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel de Administración</title>
 
@@ -37,7 +37,7 @@
 		<div class="content-wrapper">
 			<div class="list-header">
 				<h2>Listado de Usuarios</h2>
-					<a th:href="@{/admin/Usuario/formularioNuevoUsuario}"
+				<a th:href="@{/admin/Usuario/formularioNuevoUsuario}"
 					class="btn btn-custom w-100">Añadir Nuevo</a>
 			</div>
 

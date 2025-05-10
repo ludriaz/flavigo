@@ -2,7 +2,7 @@ package tfg.jordanlucia.aplicacion.flavigo.web;
 
 import tfg.jordanlucia.aplicacion.flavigo.model.entity.Empresa;
 import tfg.jordanlucia.aplicacion.flavigo.model.modelos.EmpresaModelo;
-import tfg.jordanlucia.aplicacion.flavigo.model.modelos.PuntoDeInteresModelo;
+
 
 
 public class EmpresaAssembler {

@@ -1,12 +1,10 @@
 $(document).ready(function() {
-    console.log('Script consultarPuntoInteres.js cargado');
-    console.log('Elemento #puntosInteresTable encontrado:', $('#puntosInteresTable').length > 0);
-    
     var urlConsultaPuntoInteres = 'http://localhost:8080/admin/PuntoInteres/ConsultarPuntoInteresJSON';
     var urlParams = new URLSearchParams(window.location.search);
 
     var puntosInteresTable = $('#puntosInteresTable').DataTable({
         "serverSide": true,
+        "processing": true,
         "ajax": {
             "url": urlConsultaPuntoInteres,
             "type": "GET",
@@ -14,13 +12,18 @@ $(document).ready(function() {
                 data.nombre = $('#filtroNombre').val();
                 data.tipo = $('#filtroTipo').val();
                 data.idPuntoInteres = $('#filtroId').val();
+                planify(data); // Aplicamos la función planify aquí
 
                 urlParams.forEach(function(value, key) {
                     data[key] = value;
                 });
                 return data;
             },
-            "dataSrc": "data"
+            "dataSrc": "data",
+            "error": function(xhr, error, thrown) {
+                console.error("Error al cargar los puntos de interés:", error);
+                $('#puntosInteresTable tbody').html('<tr><td colspan="6" class="text-center">Error al cargar los datos. Por favor, inténtalo de nuevo.</td></tr>');
+            }
         },
         "columns": [
             { "data": "id" },
@@ -39,14 +42,11 @@ $(document).ready(function() {
                 }
             },
             {
-                "data": null,
+                "data": "id",
                 "orderable": false,
-                "searchable": false,
                 "render": function(data, type, row) {
-                    return `
-                        <button class="btn btn-sm btn-warning editar" data-id="${row.id}">Editar</button>
-                        <button class="btn btn-danger btn-sm borrar" data-id="${row.id}">Borrar</button>
-                    `;
+                    return '<button class="btn btn-sm btn-warning editar me-2" data-id="' + data + '">Editar</button>' +
+                           '<a href="#" data-id="' + data + '" class="btn btn-danger btn-sm btn-borrar">Borrar</a>';
                 }
             }
         ],
@@ -56,21 +56,17 @@ $(document).ready(function() {
 		    { "targets": 2, "name": "tipo" },
 		    { "targets": 3, "name": "direccion" },
 		    { "targets": 4, "name": "ubicacion" },
-		    { "targets": 5, "orderable": false, "searchable": false, "name": "acciones" }
+		    { "targets": 5, "name": "acciones", "orderable": false, "visible": true }
 		],
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json"
-        }
+        },
+		"searching": false,
+        "order": [[0, "asc"]] // Añadido el ordenamiento por la primera columna por defecto
     });
 
-    $('#aplicarFiltros').on('click', function() {
-        var idFiltro = $('#filtroId').val();
-        if (idFiltro !== '' && isNaN(parseInt(idFiltro))) {
-            $('#filtroId').addClass('is-invalid');
-        } else {
-            $('#filtroId').removeClass('is-invalid');
-            puntosInteresTable.ajax.reload();
-        }
+    $('#aplicarFiltros').on('click', function(e) {
+        puntosInteresTable.ajax.reload();
     });
 
     $('#filtroId').on('input', function() {
@@ -89,11 +85,18 @@ $(document).ready(function() {
         window.location.href = `/admin/PuntoInteres/Editar/${id}`;
     });
 
-    $('#puntosInteresTable tbody').on('click', '.borrar', function () {
-        var id = $(this).data('id');
-        if (confirm('¿Estás seguro de que deseas borrar este punto de interés?')) {
-            // Realizar la petición DELETE o redirigir
-            window.location.href = `/admin/PuntoInteres/Borrar/${id}`;
-        }
+    $('#puntosInteresTable').on("click", ".btn-borrar", function (e) {
+        var id = $(this).data("id");
+        $("#eliminar-id-punto-interes").val(id); // Asegúrate de tener un input con este ID
+        $("#eliminar-punto-interes-form").submit(); // Asegúrate de tener un formulario con este ID
     });
 });
+
+function planify(data) {
+    for (var i = 0; i < data.columns.length; i++) {
+        var column = data.columns[i];
+        column.searchRegex = column.search.regex;
+        column.searchValue = column.search.value;
+        delete (column.search);
+    }
+}

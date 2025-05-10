@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import tfg.jordanlucia.aplicacion.flavigo.ENUMS.TipoPlan;
+import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.PuntoInteresDTO;
 
 
 public class EmpresaModelo {
@@ -16,7 +17,7 @@ public class EmpresaModelo {
 	   private LocalDateTime fechaAlta;
 	   private String email;
 	   private String telefono;
-	   private PuntoDeInteresModelo puntoDeInteres;
+	   private PuntoInteresDTO puntoDeInteres;
 	   
 	   
 	   
@@ -24,7 +25,7 @@ public class EmpresaModelo {
 	}
 	
 	public EmpresaModelo(Integer  id, String nombre, String apellido1, String apellido2, String cif, TipoPlan tipoPlan,
-			LocalDateTime fechaAlta, String email, String telefono, PuntoDeInteresModelo puntoDeInteres) {
+			LocalDateTime fechaAlta, String email, String telefono, PuntoInteresDTO  puntoDeInteres) {
 
 		this.id = id;
 		this.nombre = nombre;
@@ -91,10 +92,10 @@ public class EmpresaModelo {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public PuntoDeInteresModelo getPuntoDeInteres() {
+	public PuntoInteresDTO  getPuntoDeInteres() {
 		return puntoDeInteres;
 	}
-	public void setPuntoDeInteres(PuntoDeInteresModelo puntoDeInteres) {
+	public void setPuntoDeInteres(PuntoInteresDTO  puntoDeInteres) {
 		this.puntoDeInteres = puntoDeInteres;
 	}
 

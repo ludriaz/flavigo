@@ -20,70 +20,96 @@ import tfg.jordanlucia.aplicacion.flavigo.repository.puntoInteres.PuntoInteresRe
 import tfg.jordanlucia.aplicacion.flavigo.web.assembler.puntoInteres.PuntoInteresAssembler;
 import tfg.jordanlucia.aplicacion.flavigo.web.model.PuntoInteresFilter;
 
-
-
 @Service
 public class PuntoInteresService implements PuntoInteresServiceInterface {
 
-    @Autowired
-    private PuntoInteresRepository puntoInteresRepository;
+	@Autowired
+	private PuntoInteresRepository puntoInteresDAO;
 
-    @Override
-    @Transactional
-    public PuntoInteres guardar(PuntoInteres puntoInteres) {
-        return puntoInteresRepository.save(puntoInteres);
-    }
+	@Override
+	@Transactional
+	public boolean createPuntoInteres(PuntoInteresDTO dto) {
+		Optional<PuntoInteres> existente = puntoInteresDAO.findByNombre(dto.getNombre());
+		if (existente.isPresent()) {
+			return false;
+		}
+		PuntoInteres entidad = PuntoInteresAssembler.toEntity(dto);
+		puntoInteresDAO.save(entidad);
+		return true;
+	}
 
-    @Override
-    public Optional<PuntoInteres> buscarPorId(Integer id) {
-        return puntoInteresRepository.findById(id);
-    }
+	@Override
+	public void deletePuntoInteres(int id) {
+		puntoInteresDAO.deleteById(id);
+	}
 
-    @Override
-    public List<PuntoInteres> buscarTodos() {
-        return puntoInteresRepository.findAll();
-    }
+	@Override
+	@Transactional
+	public boolean edit(PuntoInteresDTO dto) {
+		PuntoInteres puntoInteres = puntoInteresDAO.findById(dto.getId())
+				.orElseThrow(() -> new RuntimeException("Punto de interés no encontrado"));
 
-    @Override
-    @Transactional
-    public void eliminarPorId(Integer id) {
-        puntoInteresRepository.deleteById(id);
-    }
+		Optional<PuntoInteres> existente = puntoInteresDAO.findByNombre(dto.getNombre());
 
-    @Override
-    @Transactional(readOnly = true)
-    public Iterable<PuntoInteresDTO> findALL() {
-        Iterable<PuntoInteres> beans = puntoInteresRepository.findAll();
-        List<PuntoInteresDTO> dtos = StreamSupport.stream(beans.spliterator(), false)
-                .map(PuntoInteresAssembler::toDTO)
-                .collect(Collectors.toList());
+		 // Use == for comparing integer IDs
+        if (existente.isPresent() && existente.get().getId() != dto.getId()) {
+            return false;
+		}
 
-        return dtos;
-    }
-    
-    @Override
-    @Transactional(readOnly = true)
-    public Page<PuntoInteres> search(PuntoInteresFilter filtro) {
-        Pageable pageable = PageRequest.of(
-        		filtro.getPage() == null ? filtro.getStart() : filtro.getPage(),
-        		filtro.getLength(),
-        		filtro.getOrdenacionSort()
-        		);
+		// Actualiza los campos del punto de interés
+		puntoInteres.setNombre(dto.getNombre());
+		puntoInteres.setDescripcionBreve(dto.getDescripcionBreve());
+		puntoInteres.setDescripcionDetallada(dto.getDescripcionDetallada());
+		puntoInteres.setLatitud(dto.getLatitud());
+		puntoInteres.setLongitud(dto.getLongitud());
+		puntoInteres.setCalle(dto.getCalle());
+		puntoInteres.setNumero(dto.getNumero());
+		puntoInteres.setLocalidad(dto.getLocalidad());
+		puntoInteres.setUrl(dto.getUrl());
+		puntoInteres.setImagen(dto.getImagen());
+		puntoInteres.setHorarioAperturaManana(dto.getHorarioAperturaManana());
+		puntoInteres.setHorarioAperturaTarde(dto.getHorarioAperturaTarde());
+		puntoInteres.setHorarioCierreManana(dto.getHorarioCierreManana());
+		puntoInteres.setHorarioCierreTarde(dto.getHorarioCierreTarde());
+		puntoInteres.setEtiquetas(dto.getEtiquetas());
+		puntoInteres.setTelefono(dto.getTelefono());
+		puntoInteresDAO.save(puntoInteres);
+		return true;
+	}
 
-      
-        
-        
-        Page<PuntoInteres> page = puntoInteresRepository.findAll(
-            pageable
-        );
+	@Override
+	public PuntoInteresDTO findPuntoInteresDTOById(int id) {
+		Optional<PuntoInteres> optional = puntoInteresDAO.findById(id);
+		return optional.map(PuntoInteresAssembler::toDTO).orElse(null);
+	}
 
-    
-        return page;
-    }
+	@Override
+	public PuntoInteres findByNombre(String nombre) {
+		return puntoInteresDAO.findByNombre(nombre).orElse(null);
+	}
 
-    public PuntoInteres findById(int id) {
-        return puntoInteresRepository.findById(id).orElse(null);
-    }
-    
-    
+	@Override
+	public Iterable<PuntoInteres> findALL() {
+	System.out.println(puntoInteresDAO.findAll());
+		return puntoInteresDAO.findAll();
+	}
+
+	@Override
+	public Page<PuntoInteresDTO> search(PuntoInteresFilter filtro) {
+		Pageable pageable = PageRequest.of(
+				filtro.getPage() == null ? filtro.getStart() / filtro.getLength() : filtro.getPage(),
+				filtro.getLength());
+
+		Page<PuntoInteres> page = puntoInteresDAO.findByFilter(filtro.getIdPuntoInteres(), 
+				filtro.getNombre(),
+				filtro.getTipo(), 
+				pageable);
+
+		return page.map(PuntoInteresAssembler::toDTO);
+	}
+
+	@Override
+	public PuntoInteres findById(int id) {
+		return puntoInteresDAO.findById(id).orElse(null);
+	}
 }

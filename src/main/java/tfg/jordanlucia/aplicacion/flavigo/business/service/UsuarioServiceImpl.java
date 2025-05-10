@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
@@ -21,7 +22,10 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
 
     @Autowired
     private UsuarioDAOInterface usuarioDAO;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    
     @Override
     public boolean create(UsuarioModelo usuarioModelo) {
         // Convertimos el modelo a la entidad
@@ -31,6 +35,10 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
         if (usuarioDAO.existsByEmail(usuario.getEmail())) {
             return false; // No se crea porque ya existe
         }
+
+        // Hashamos la contraseña antes de guardarla
+        String hashedPassword = passwordEncoder.encode(usuario.getContrasena());
+        usuario.setContrasena(hashedPassword); // Sobreescribimos con la versión hasheada
 
         // Guardamos la entidad en la base de datos
         usuarioDAO.save(usuario);
@@ -94,10 +102,10 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
         );
 
         Page<Usuario> page = usuarioDAO.findByFilter(
-            filtro.getId(),
+           filtro.getId(),
            filtro.getEmail(),
            filtro.getNombre(),
-            filtro.getRol(),
+           filtro.getRol(),
             pageable
         );
 
@@ -105,10 +113,24 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
         return page.map(UsuarioAssembler::toView);
     }
 
-	@Override
+    @Override
 	public boolean edit(@Valid UsuarioModelo usuarioModelo) {
-		// TODO Auto-generated method stub
-		return false;
+		// Primero, recupera el usuario existente de la base de datos
+		Optional<Usuario> usuarioOptional = usuarioDAO.findById(usuarioModelo.getId());
+
+		if (usuarioOptional.isPresent()) {
+			Usuario usuarioExistente = usuarioOptional.get();
+
+			// Actualiza los otros campos del usuario existente con los valores del modelo
+			usuarioExistente.setNombre(usuarioModelo.getNombre());
+			usuarioExistente.setRol(usuarioModelo.getRol());
+
+			// Guarda los cambios en la base de datos
+			usuarioDAO.save(usuarioExistente);
+			return true; // La edición fue exitosa
+		} else {
+			return false; // No se encontró el usuario a editar
+		}
 	}
 
    

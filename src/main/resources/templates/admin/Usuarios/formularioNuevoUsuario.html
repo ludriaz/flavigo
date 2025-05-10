@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario nuevo Usuario</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/boostrap/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/boostrap/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/tables-forms.css}">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    </head>
+<body>
+<div th:insert="~{admin/fragmentos/sidebar :: sidebar}"></div>
+<div th:insert="~{admin/fragmentos/navbar :: navbar}"></div>
+<br>
+<br>
+<div
+        class="container-sm bg-white bg-opacity-50 p-4 rounded col-10 col-md-4">
+    <h3 class="text-center">Añadir Nuevo Usuario</h3>
+    <br>
+    <form id="formulario-nuevo-usuario" th:action="@{/admin/Usuario/insertarUsuario}" method="post" th:object="${usuarioModelo}">
+        <div class="mb-3">
+            <label for="nombreNuevoUsuario" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreNuevoUsuario"
+                   th:field="*{nombre}" placeholder="Introduce el nombre" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="emailNuevoUsuario" class="form-label">Email</label>
+            <input type="email" class="form-control" id="emailNuevoUsuario"
+                   th:field="*{email}" placeholder="Introduce el email" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="passwordNuevoUsuario" class="form-label">Contraseña</label>
+            <input type="password" class="form-control"
+                   id="passwordNuevoUsuario" th:field="*{contrasena}" placeholder="Introduce la contraseña"
+                   required>
+            <div class="text-danger" th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="rolNuevoUsuario" class="form-label">Rol</label>
+            <select class="form-select" id="rolNuevoUsuario" th:field="*{rol}" required>
+                <option value="">Seleccionar rol</option>
+                <option value="ADMIN">Administrador</option>
+                <option value="USER">Usuario</option>
+            </select>
+            <div class="text-danger" th:if="${#fields.hasErrors('rol')}" th:errors="*{rol}"></div>
+        </div>
+        <br>
+        <div class="text-center">
+            <button type="submit" class="btn btn-custom">Guardar
+                Usuario</button>
+            <button type="button" class="btn btn-outline-secondary"
+                    onclick="window.history.back()">Cancelar</button>
+        </div>
+    </form>
+    <div th:replace="~{admin/fragmentos/footer :: footer}"></div>
+</div>
+</body>
+</html>

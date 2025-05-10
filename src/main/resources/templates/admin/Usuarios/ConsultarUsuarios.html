@@ -3,8 +3,14 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+
+<!-- CSRF protection -->
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel de Administración</title>
+
+
 <link rel="stylesheet" th:href="@{/css/boostrap/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/boostrap/bootstrap-icons.css}">
 <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
@@ -31,8 +37,8 @@
 		<div class="content-wrapper">
 			<div class="list-header">
 				<h2>Listado de Usuarios</h2>
-				<button type="button" class="btn btn-custom">Añadir Nuevo
-					Usuario</button>
+					<a th:href="@{/admin/Usuario/formularioNuevoUsuario}"
+					class="btn btn-custom w-100">Añadir Nuevo</a>
 			</div>
 
 			<div class="card mb-4">

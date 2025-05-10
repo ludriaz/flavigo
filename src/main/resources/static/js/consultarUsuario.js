@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var urlConsultaUsuarios = 'http://localhost:8080/admin/Usuario/ConsultarUsuarioJSON';
 
     var tablaResultados = $('#tablaUsuarios').DataTable({
@@ -16,6 +16,7 @@ $(document).ready(function () {
         "processing": true,
         "serverSide": true,
         "ordering": true,
+		"searching": false,
         "order": [[0, "asc"]],
 		"columns": [
 		            { "data": "id" },
@@ -23,21 +24,21 @@ $(document).ready(function () {
 		            { "data": "email" },
 		            { "data": "rol" },
 		            {
-		                "data": "id", // Podemos seguir usando el 'id' ya que lo necesitamos para ambas acciones
+		                "data": "id",
 		                "orderable": false,
 		                "render": function (data, type, row) {
-		                    return '<button class="btn btn-warning btn-sm me-2" onclick="editarUsuario(' + data + ')">Editar</button>' +
-		                           '<a href="#" data-id="' + data + '" class="btn btn-danger btn-sm">Borrar</a>';
+		                    // Modificamos la función render para crear un enlace en lugar de un botón
+		                    return '<a href="/admin/Usuario/formularioEditarUsuario?id=' + data + '" class="btn btn-warning btn-sm me-2">Editar</a>' +
+		                           '<a href="#" data-id="' + data + '" class="btn btn-danger btn-sm btn-borrar">Borrar</a>';
 		                }
 		            }
-		            // ¡Ojo! Hemos eliminado la sexta columna que renderizaba el botón de "Borrar" por separado
 		        ],
 		        "columnDefs": [
 		            { "targets": 0, "name": "id" },
 		            { "targets": 1, "name": "nombre" },
 		            { "targets": 2, "name": "email" },
 		            { "targets": 3, "name": "rol" },
-		            { "targets": 4, "name": "acciones", "orderable": false, "visible": true } // Hemos renombrado la columna y reducido el número de targets
+		            { "targets": 4, "name": "acciones", "orderable": false, "visible": true }
 		        ]
     });
 
@@ -51,7 +52,8 @@ $(document).ready(function () {
         tablaResultados.ajax.reload(); // Recarga la tabla sin los filtros aplicados
     });
 
-    $('#tablaUsuarios').on("click", "a", function (e) {
+
+    $('#tablaUsuarios').on("click", ".btn-borrar", function (e) {
         var id = $(this).data("id");
         $("#eliminar-id").val(id);
         $("#eliminar-form").submit();

@@ -23,5 +23,7 @@ import tfg.jordanlucia.aplicacion.flavigo.web.model.PuntoInteresFilter;
 	    Iterable<PuntoInteresDTO> findALL();
 	    
 	    public Page<PuntoInteres> search(PuntoInteresFilter filtro);
+
+		PuntoInteres findById(int id);
 	}
 

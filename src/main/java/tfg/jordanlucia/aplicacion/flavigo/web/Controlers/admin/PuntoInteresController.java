@@ -16,6 +16,7 @@ import tfg.jordanlucia.aplicacion.flavigo.web.helper.JsonPaginationWrapper;
 import tfg.jordanlucia.aplicacion.flavigo.web.model.PuntoInteresFilter;
 import tfg.jordanlucia.aplicacion.flavigo.ENUMS.enums.TipoPuntoInteres;
 import tfg.jordanlucia.aplicacion.flavigo.business.service.puntoInteres.PuntoInteresService;
+import tfg.jordanlucia.aplicacion.flavigo.business.service.puntoInteres.ServiceInterface.PuntoInteresServiceInterface;
 
 
 @Controller
@@ -27,7 +28,7 @@ public class PuntoInteresController {
     private static final String LISTA_PUNTOS = "listaPuntos";
 
     @Autowired
-    private PuntoInteresService service;
+    private PuntoInteresServiceInterface service;
 
     PuntoInteresController(SecurityConfig securityConfig) {
         this.securityConfig = securityConfig;

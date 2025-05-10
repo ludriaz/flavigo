@@ -5,27 +5,39 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+import jakarta.validation.Valid;
 import tfg.jordanlucia.aplicacion.flavigo.model.entity.Usuario;
 import tfg.jordanlucia.aplicacion.flavigo.model.modelos.UsuarioModelo;
 import tfg.jordanlucia.aplicacion.flavigo.repository.UsuarioDAOInterface;
 import tfg.jordanlucia.aplicacion.flavigo.web.UsuarioAssembler;
-
+import tfg.jordanlucia.aplicacion.flavigo.web.model.UsuarioFilter;
+@Service
 public class UsuarioServiceImpl implements UsuarioServiceInterface {
 
     @Autowired
     private UsuarioDAOInterface usuarioDAO;
 
     @Override
-    public UsuarioModelo create(UsuarioModelo usuarioModelo) {
+    public boolean create(UsuarioModelo usuarioModelo) {
         // Convertimos el modelo a la entidad
         Usuario usuario = UsuarioAssembler.toDomain(usuarioModelo);
-        // Guardamos la entidad en la base de datos
-        Usuario usuarioGuardado = usuarioDAO.save(usuario);
-        // Convertimos la entidad guardada de nuevo al modelo y lo retornamos
-        return UsuarioAssembler.toView(usuarioGuardado);
-    }
 
+        // Verificamos si ya existe un usuario con el mismo email
+        if (usuarioDAO.existsByEmail(usuario.getEmail())) {
+            return false; // No se crea porque ya existe
+        }
+
+        // Guardamos la entidad en la base de datos
+        usuarioDAO.save(usuario);
+
+        return true;
+    }
+    
     @Override
     public UsuarioModelo save(UsuarioModelo usuarioModelo) {
         // Convertimos el modelo a la entidad
@@ -66,12 +78,38 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
     public List<UsuarioModelo> findAll() {
         // Obtenemos todos los Usuarios de la base de datos
         List<Usuario> usuarios = (List<Usuario>) usuarioDAO.findAll();
-        // Convertimos todas las entidades a modelos
+        // Convertimos todas las entidades a modelosr
         List<UsuarioModelo> usuarioModelos = usuarios.stream()
                 .map(UsuarioAssembler::toView)
                 .collect(Collectors.toList());
         return usuarioModelos;
     }
+
+    @Override
+    public Page<UsuarioModelo> search(UsuarioFilter filtro) {
+        Pageable pageable = PageRequest.of(
+            filtro.getPage() == null ? filtro.getStart() : filtro.getPage(),
+            filtro.getLength(),
+            filtro.getOrdenacionSort()
+        );
+
+        Page<Usuario> page = usuarioDAO.findByFilter(
+            filtro.getId(),
+           filtro.getEmail(),
+           filtro.getNombre(),
+            filtro.getRol(),
+            pageable
+        );
+
+        // Convertimos la página de entidades a modelos
+        return page.map(UsuarioAssembler::toView);
+    }
+
+	@Override
+	public boolean edit(@Valid UsuarioModelo usuarioModelo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
    
 }

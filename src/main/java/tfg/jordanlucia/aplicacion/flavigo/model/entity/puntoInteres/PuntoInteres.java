@@ -8,76 +8,75 @@ import java.math.BigDecimal;
 import java.time.LocalTime;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) 
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "TD_PUNTO_INTERES")
 public class PuntoInteres {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @NotNull
-    @Size(max = 100)
-    @Column(name = "nombre", length = 100, nullable = false)
-    private String nombre;
+	@NotNull
+	@Size(max = 100)
+	@Column(name = "nombre", length = 100, nullable = false)
+	private String nombre;
 
-    @Column(name = "descripcion_breve", columnDefinition = "TEXT")
-    private String descripcionBreve;
+	@Column(name = "descripcion_breve", columnDefinition = "TEXT")
+	private String descripcionBreve;
 
-    @Column(name = "descripcion_detallada", columnDefinition = "TEXT")
-    private String descripcionDetallada;
+	@Column(name = "descripcion_detallada", columnDefinition = "TEXT")
+	private String descripcionDetallada;
 
-    @Digits(integer = 3, fraction = 7)
-    @Column(name = "latitud", precision = 10, scale = 7)
-    private BigDecimal latitud;
+	@Digits(integer = 3, fraction = 7)
+	@Column(name = "latitud", precision = 10, scale = 7)
+	private BigDecimal latitud;
 
-    @Digits(integer = 3, fraction = 7)
-    @Column(name = "longitud", precision = 10, scale = 7)
-    private BigDecimal longitud;
+	@Digits(integer = 3, fraction = 7)
+	@Column(name = "longitud", precision = 10, scale = 7)
+	private BigDecimal longitud;
 
-    @Size(max = 100)
-    @Column(name = "calle", length = 100)
-    private String calle;
+	@Size(max = 100)
+	@Column(name = "calle", length = 100)
+	private String calle;
 
-    @Size(max = 10)
-    @Column(name = "numero", length = 10)
-    private String numero;
+	@Size(max = 10)
+	@Column(name = "numero", length = 10)
+	private String numero;
 
-    @Size(max = 100)
-    @Column(name = "localidad", length = 100)
-    private String localidad;
+	@Size(max = 100)
+	@Column(name = "localidad", length = 100)
+	private String localidad;
 
-    @Size(max = 255)
-    @Column(name = "url", length = 255)
-    private String url;
+	@Size(max = 255)
+	@Column(name = "url", length = 255)
+	private String url;
 
-    @Size(max = 255)
-    @Column(name = "imagen", length = 255)
-    private String imagen;
+	@Size(max = 255)
+	@Column(name = "imagen", length = 255)
+	private String imagen;
 
-    @Column(name = "horario_apertura_manana")
-    private LocalTime horarioAperturaManana;
+	@Column(name = "horario_apertura_manana")
+	private LocalTime horarioAperturaManana;
 
-    @Column(name = "horario_apertura_tarde")
-    private LocalTime horarioAperturaTarde;
+	@Column(name = "horario_apertura_tarde")
+	private LocalTime horarioAperturaTarde;
 
-    @Column(name = "horario_cierre_manana")
-    private LocalTime horarioCierreManana;
+	@Column(name = "horario_cierre_manana")
+	private LocalTime horarioCierreManana;
 
-    @Column(name = "horario_cierre_tarde")
-    private LocalTime horarioCierreTarde;
+	@Column(name = "horario_cierre_tarde")
+	private LocalTime horarioCierreTarde;
 
-    @Column(name = "etiquetas", columnDefinition = "TEXT")
-    private String etiquetas;
+	@Column(name = "etiquetas", columnDefinition = "TEXT")
+	private String etiquetas;
 
-    @Size(max = 20)
-    @Column(name = "telefono", length = 20)
-    private String telefono;
-    
-    @Column(name = "tipo")
-    @Enumerated(EnumType.STRING)
-    private TipoPuntoInteres tipo;
-    
+	@Size(max = 20)
+	@Column(name = "telefono", length = 20)
+	private String telefono;
+
+	@Column(name = "tipo")
+	@Enumerated(EnumType.STRING)
+	private TipoPuntoInteres tipo;
 
 	public TipoPuntoInteres getTipo() {
 		return tipo;
@@ -222,8 +221,6 @@ public class PuntoInteres {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	
-	
 
 	public PuntoInteres() {
 		super();
@@ -256,5 +253,4 @@ public class PuntoInteres {
 		this.telefono = telefono;
 	}
 
-   
 }

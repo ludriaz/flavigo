@@ -64,7 +64,7 @@ import tfg.jordanlucia.aplicacion.flavigo.web.model.PuntoInteresFilter;
 	     * @param id El ID del punto de interés a buscar.
 	     * @return El `PuntoInteres` correspondiente al ID, o `null` si no se encuentra.
 	     */
-	    PuntoInteres findById(int id);
+	    PuntoInteresDTO findById(int id);
 	
 	}
 

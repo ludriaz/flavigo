@@ -19,7 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import jakarta.validation.Valid;
 import tfg.jordanlucia.aplicacion.flavigo.config.security.SecurityConfig;
 import tfg.jordanlucia.aplicacion.flavigo.model.entity.puntoInteres.PuntoInteres;
+import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.ActividadDTO;
+import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.AlojamientoDTO;
+import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.BarCafeteriaDTO;
+import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.ComercioDTO;
+import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.EventoDTO;
 import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.PuntoInteresDTO;
+import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.RestauranteDTO;
+import tfg.jordanlucia.aplicacion.flavigo.model.modelos.puntoIntres.TuristicoDTO;
 import tfg.jordanlucia.aplicacion.flavigo.web.helper.JsonPaginationWrapper;
 
 import tfg.jordanlucia.aplicacion.flavigo.web.model.PuntoInteresFilter;
@@ -65,11 +72,11 @@ public class PuntoInteresController {
         return new JsonPaginationWrapper<>(resultado, filter.getDraw());
     }
 
-    @GetMapping("/Editar/{id}")
-    public String editarPuntoInteres(@PathVariable("id") int id, Model model) {
-        PuntoInteres punto = service.findById(id);
+    @GetMapping("/formularioEditarPuntoInteres")
+    public String editarPuntoInteres(@RequestParam("id") Integer id, Model model) {
+        PuntoInteresDTO punto = service.findById(id);
         if (punto == null) {
-            return "redirect:/admin/PuntoInteres/ConsultarPuntoInteres";
+            return CONSULTAR_PUNTO_INTERES;
         }
         model.addAttribute("puntoModel", punto);
         model.addAttribute("tipos", TipoPuntoInteres.values());
@@ -79,28 +86,114 @@ public class PuntoInteresController {
     @GetMapping("/Nuevo")
     public String mostrarFormularioNuevoPunto(Model model) {
         model.addAttribute("puntoModel", new PuntoInteresDTO());
+        model.addAttribute("comercioModel", new ComercioDTO());
+        model.addAttribute("eventoModel", new EventoDTO());
+        model.addAttribute("actividadModel", new ActividadDTO());
+        model.addAttribute("barCafeteriaModel", new BarCafeteriaDTO());
+        model.addAttribute("restauranteModel", new RestauranteDTO());
+        model.addAttribute("alojamientoModel", new AlojamientoDTO());
+        model.addAttribute("turisticoModel", new TuristicoDTO());
         model.addAttribute("tipos", TipoPuntoInteres.values());
         return FORMULARIO_NUEVO_PUNTO;
     }
 
     @PostMapping("/Guardar")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String guardarPuntoInteres(@Valid @ModelAttribute("puntoModel") PuntoInteresDTO puntoModel, BindingResult resultadoValidacion, Model model) {
-        if (resultadoValidacion.hasErrors()) {
+    public String guardarPuntoInteres(@Valid @ModelAttribute("puntoModel") PuntoInteresDTO puntoModel,
+                                        BindingResult resultadoValidacionPunto,
+                                        @ModelAttribute("comercioModel") ComercioDTO comercioModel,
+                                        BindingResult resultadoValidacionComercio,
+                                        @ModelAttribute("eventoModel") EventoDTO eventoModel,
+                                        BindingResult resultadoValidacionEvento,
+                                        @ModelAttribute("actividadModel") ActividadDTO actividadModel,
+                                        BindingResult resultadoValidacionActividad,
+                                        @ModelAttribute("barCafeteriaModel") BarCafeteriaDTO barCafeteriaModel,
+                                        BindingResult resultadoValidacionBarCafeteria,
+                                        @ModelAttribute("restauranteModel") RestauranteDTO restauranteModel,
+                                        BindingResult resultadoValidacionRestaurante,
+                                        @ModelAttribute("alojamientoModel") AlojamientoDTO alojamientoModel,
+                                        BindingResult resultadoValidacionAlojamiento,
+                                        @ModelAttribute("turisticoModel") TuristicoDTO turisticoModel,
+                                        BindingResult resultadoValidacionTuristico,
+                                        Model model) {
+
+        if (resultadoValidacionPunto.hasErrors()) {
             model.addAttribute("tipos", TipoPuntoInteres.values());
             return FORMULARIO_NUEVO_PUNTO;
         }
 
-        boolean creado = service.createPuntoInteres(puntoModel);
+        String tipoSeleccionado = puntoModel.getTipo();
+        boolean creado = false;
+
+        if ("Comercio".equals(tipoSeleccionado)) {
+            if (!resultadoValidacionComercio.hasErrors()) {
+                creado = service.createPuntoInteres(puntoModel, comercioModel);
+            } else {
+                model.addAttribute("tipos", TipoPuntoInteres.values());
+                model.addAttribute("comercioModel", comercioModel);
+                return FORMULARIO_NUEVO_PUNTO;
+            }
+        } else if ("Evento".equals(tipoSeleccionado)) {
+            if (!resultadoValidacionEvento.hasErrors()) {
+                creado = service.createPuntoInteres(puntoModel, eventoModel);
+            } else {
+                model.addAttribute("tipos", TipoPuntoInteres.values());
+                model.addAttribute("eventoModel", eventoModel);
+                return FORMULARIO_NUEVO_PUNTO;
+            }
+        } else if ("Actividad".equals(tipoSeleccionado)) {
+            if (!resultadoValidacionActividad.hasErrors()) {
+                creado = service.createPuntoInteres(puntoModel, actividadModel);
+            } else {
+                model.addAttribute("tipos", TipoPuntoInteres.values());
+                model.addAttribute("actividadModel", actividadModel);
+                return FORMULARIO_NUEVO_PUNTO;
+            }
+        } else if ("Bar_Cafeteria".equals(tipoSeleccionado)) {
+            if (!resultadoValidacionBarCafeteria.hasErrors()) {
+                creado = service.createPuntoInteres(puntoModel, barCafeteriaModel);
+            } else {
+                model.addAttribute("tipos", TipoPuntoInteres.values());
+                model.addAttribute("barCafeteriaModel", barCafeteriaModel);
+                return FORMULARIO_NUEVO_PUNTO;
+            }
+        } else if ("Restaurante".equals(tipoSeleccionado)) {
+            if (!resultadoValidacionRestaurante.hasErrors()) {
+                creado = service.createPuntoInteres(puntoModel, restauranteModel);
+            } else {
+                model.addAttribute("tipos", TipoPuntoInteres.values());
+                model.addAttribute("restauranteModel", restauranteModel);
+                return FORMULARIO_NUEVO_PUNTO;
+            }
+        } else if ("Alojamiento".equals(tipoSeleccionado)) {
+            if (!resultadoValidacionAlojamiento.hasErrors()) {
+                creado = service.createPuntoInteres(puntoModel, alojamientoModel);
+            } else {
+                model.addAttribute("tipos", TipoPuntoInteres.values());
+                model.addAttribute("alojamientoModel", alojamientoModel);
+                return FORMULARIO_NUEVO_PUNTO;
+            }
+        } else if ("Turistico".equals(tipoSeleccionado)) {
+            if (!resultadoValidacionTuristico.hasErrors()) {
+                creado = service.createPuntoInteres(puntoModel, turisticoModel);
+            } else {
+                model.addAttribute("tipos", TipoPuntoInteres.values());
+                model.addAttribute("turisticoModel", turisticoModel);
+                return FORMULARIO_NUEVO_PUNTO;
+            }
+        } else {
+            creado = service.createPuntoInteres(puntoModel, null);
+        }
 
         if (!creado) {
-            resultadoValidacion.rejectValue("nombre", null, "Ya existe un punto de interés con ese nombre.");
+            resultadoValidacionPunto.rejectValue("nombre", null, "Ya existe un punto de interés con ese nombre.");
             model.addAttribute("tipos", TipoPuntoInteres.values());
             return FORMULARIO_NUEVO_PUNTO;
         }
 
-        return "redirect:/admin/PuntoInteres/ConsultarPuntoInteres";
+        return CONSULTAR_PUNTO_INTERES;
     }
+
 
     @PostMapping("/Actualizar")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

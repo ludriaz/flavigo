@@ -45,7 +45,7 @@ $(document).ready(function() {
                 "data": "id",
                 "orderable": false,
                 "render": function(data, type, row) {
-                    return '<button class="btn btn-sm btn-warning editar me-2" data-id="' + data + '">Editar</button>' +
+                    return '<a href="/admin/PuntoInteres/formularioEditarPuntoInteres?id=' + data + '" class="btn btn-warning btn-sm me-2">Editar</a>' +
                            '<a href="#" data-id="' + data + '" class="btn btn-danger btn-sm btn-borrar">Borrar</a>';
                 }
             }

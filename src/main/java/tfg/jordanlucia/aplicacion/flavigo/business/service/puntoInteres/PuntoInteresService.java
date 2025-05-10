@@ -109,7 +109,13 @@ public class PuntoInteresService implements PuntoInteresServiceInterface {
 	}
 
 	@Override
-	public PuntoInteres findById(int id) {
-		return puntoInteresDAO.findById(id).orElse(null);
-	}
+	public PuntoInteresDTO findById(int id) {
+        Optional<PuntoInteres> puntoInteresOptional = puntoInteresDAO.findById(id);
+        if (puntoInteresOptional.isPresent()) {
+            PuntoInteres puntoInteres = puntoInteresOptional.get();
+            return PuntoInteresAssembler.toDTO(puntoInteres);
+        } else {
+            return null;
+        }
+    }
 }

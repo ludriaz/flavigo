@@ -17,34 +17,28 @@ $(document).ready(function () {
         "serverSide": true,
         "ordering": true,
         "order": [[0, "asc"]],
-        "columns": [
-            { "data": "id" },
-            { "data": "nombre" },
-            { "data": "email" },
-            { "data": "rol" },
-            {
-                "data": "id",
-                "orderable": false,
-                "render": function (data, type, row) {
-                    return '<button class="btn btn-warning btn-sm" onclick="editarUsuario(' + data + ')">Editar</button>';
-                }
-            },
-            {
-                "data": "id",
-                "orderable": false,
-                "render": function (data, type, row) {
-                    return '<a href="#" data-id="' + data + '" class="btn btn-danger btn-sm">Borrar</a>';
-                }
-            }
-        ],
-        "columnDefs": [
-            { "targets": 0, "name": "id" },
-            { "targets": 1, "name": "nombre" },
-            { "targets": 2, "name": "email" },
-            { "targets": 3, "name": "rol" },
-            { "targets": 4, "name": "btnEditar", "orderable": false, "visible": true },
-            { "targets": 5, "name": "btnBorrar", "orderable": false, "visible": true }
-        ]
+		"columns": [
+		            { "data": "id" },
+		            { "data": "nombre" },
+		            { "data": "email" },
+		            { "data": "rol" },
+		            {
+		                "data": "id", // Podemos seguir usando el 'id' ya que lo necesitamos para ambas acciones
+		                "orderable": false,
+		                "render": function (data, type, row) {
+		                    return '<button class="btn btn-warning btn-sm me-2" onclick="editarUsuario(' + data + ')">Editar</button>' +
+		                           '<a href="#" data-id="' + data + '" class="btn btn-danger btn-sm">Borrar</a>';
+		                }
+		            }
+		            // ¡Ojo! Hemos eliminado la sexta columna que renderizaba el botón de "Borrar" por separado
+		        ],
+		        "columnDefs": [
+		            { "targets": 0, "name": "id" },
+		            { "targets": 1, "name": "nombre" },
+		            { "targets": 2, "name": "email" },
+		            { "targets": 3, "name": "rol" },
+		            { "targets": 4, "name": "acciones", "orderable": false, "visible": true } // Hemos renombrado la columna y reducido el número de targets
+		        ]
     });
 
     $('#aplicarFiltrosBtn').on('click', function (e) {
